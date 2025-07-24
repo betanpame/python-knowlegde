@@ -30,7 +30,7 @@ Create a function `validate_password(password)` that returns a dictionary with v
 
 The strenght should be determined by how many validations pass: 
 
-- 1-2: Week
+- 1-2: Weak
 - 3-4: Medium
 - 5: Strong
 
