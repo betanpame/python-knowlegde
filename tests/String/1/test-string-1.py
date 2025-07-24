@@ -12,7 +12,7 @@ def reverse_string(text):
         str: The reversed string
     """
     # Your implementation here
-    pass
+    return text[::-1]  # This is a simple way to reverse a string in Python
 
 # Test your implementation
 if __name__ == "__main__":
