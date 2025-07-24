@@ -11,7 +11,13 @@ def clean_text(text):
     Returns:
         str: Cleaned and formatted text
     """
-    # Your implementation here
+    text = text.strip()  # Remove leading and trailing whitespace
+    text = text.title() #Converts to title case
+    text = " ".join(text.split()) #Removes extra spaces between words (only single spaces allowed)
+    text = text.replace("Bad","Good") #Replaces all occurrences of "bad" with "good"
+
+    
+    return text
     pass
 
 # Test your function
