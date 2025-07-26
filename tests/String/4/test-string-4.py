@@ -12,7 +12,9 @@ def get_string_length(text):
         int: The length of the string
     """
     # Your implementation here
-    pass
+    return len(text)
+    
+
 
 # Test your implementation
 if __name__ == "__main__":
