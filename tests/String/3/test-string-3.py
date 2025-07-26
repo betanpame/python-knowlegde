@@ -13,16 +13,45 @@ def validate_password(password):
     Returns:
         dict: Validation results with 'valid', 'errors', and 'strength' keys
     """
-    result = {
-        "valid": False,
-        "errors": [],
-        "strength": "Weak"
-    }
-    
     # Your implementation here
+
+    errors = []
+
+    if not len(password) >= 8:
+        errors.append("La contraseña debe tener al menos 8 caracteres.")
+    
+    if not any(letra.isupper() for letra in password):
+        errors.append("La contraseña debe tener al menos una mayúscula.") 
+    
+    if not any(letra.islower()for letra in password): 
+        errors.append("La contraseña debe tener al menos una minúscula.") 
+    
+    if not any(letra.isdigit() for letra in password):
+        errors.append("La contraseña debe tener al menos un número.")
+        
+    if not any(letra in string.punctuation for letra in password):
+        errors.append("La contraseña debe tener al menos un caracter especial.")
+    
+    valid=False
+    strength="weak"
+    
+    if len(errors) == 0:
+        valid=True
+        strength="strong"
+    elif len(errors) <=2:
+        strength="medium"
+    
+    
+    output = {
+        "valid": valid,
+        "errors": errors,
+        "strength": strength
+    }
+
+
     # Check length, uppercase, lowercase, digits, special characters
     
-    return result
+    return output
 
 # Test your function
 if __name__ == "__main__":

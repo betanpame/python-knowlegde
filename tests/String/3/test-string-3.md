@@ -24,7 +24,7 @@ Create a function `validate_password(password)` that returns a dictionary with v
 {
     "valid": True/False,
     "errors": ["list", "of", "error", "messages"],
-    "strength": "Weak"/"Medium"/"Strong"
+    "strength": "Weak"|"Medium"|"Strong"
 }
 ```
 
