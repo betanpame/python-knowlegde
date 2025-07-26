@@ -11,8 +11,8 @@ def to_uppercase(text):
     Returns:
         str: The uppercase version of the string
     """
-    # Your implementation here
-    pass
+    return text.upper()
+    
 
 def to_lowercase(text):
     """
@@ -24,8 +24,8 @@ def to_lowercase(text):
     Returns:
         str: The lowercase version of the string
     """
-    # Your implementation here
-    pass
+    return text.lower()
+    
 
 # Test your implementation
 if __name__ == "__main__":
