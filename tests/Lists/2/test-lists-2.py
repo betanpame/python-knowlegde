@@ -4,30 +4,40 @@
 def filter_even_squares(numbers):
     """Return squares of even numbers only using list comprehension."""
     # Your implementation here
+    return [x**2 for x in numbers if x%2 == 0]
+
+ 
     # Example: [x**2 for x in numbers if condition]
     pass
 
 def extract_initials(names):
     """Extract first letter of each word in each name."""
     # Your implementation here
+    return [[word[0] for word in name.split()] for name in names]
+  
+ 
+
     # Hint: Use nested list comprehension and .split()
     pass
 
 def flatten_matrix(matrix):
     """Flatten a 2D list into 1D using list comprehension."""
     # Your implementation here
+    return [item for new_list in matrix for item in new_list]
     # Hint: [item for sublist in matrix for item in sublist]
     pass
 
 def filter_long_words(sentences, min_length):
     """Get words longer than min_length from all sentences."""
     # Your implementation here
+    return [word for sentence in sentences for word in sentence.split() if len(word) > min_length]
     # Hint: Combine list comprehension with string operations
     pass
 
 def create_multiplication_table(n):
     """Create an n×n multiplication table using list comprehension."""
     # Your implementation here
+    return [[(i + 1) * (j + 1) for j in range(n)] for i in range(n)]
     # Hint: Use nested list comprehension with range()
     pass
 

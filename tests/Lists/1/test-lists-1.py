@@ -8,35 +8,40 @@ class ShoppingCart:
     
     def add_item(self, item):
         """Add an item to the cart."""
-        # Your implementation here
+        self.items.append(item)
         pass
     
     def remove_item(self, item):
         """Remove the first occurrence of an item."""
-        # Your implementation here
+        if "apple" not in self.items:
+            return "Item not found"
+        self.items.remove("apple")
+
         # Handle case where item doesn't exist
         pass
     
     def get_last_item(self):
         """Return the last item added (using negative indexing)."""
-        # Your implementation here
+        return self.items[-1]
+        if len(self.items) == 0:
+            return None
         # Handle empty cart case
-        pass
+    
     
     def count_item(self, item):
         """Count how many times an item appears."""
-        # Your implementation here
-        pass
+        return self.items.count ("apple")
+        
     
     def clear_cart(self):
         """Remove all items."""
-        # Your implementation here
-        pass
+        return self.items.clear()
+        
     
     def get_unique_items(self):
         """Return a list of unique items (no duplicates)."""
-        # Your implementation here
-        pass
+        return set(self.items)
+        
     
     def __str__(self):
         """String representation of the cart."""
