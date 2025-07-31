@@ -12,6 +12,10 @@ def get_first_element(my_list):
         any: First element, or None if list is empty
     """
     # Your implementation here
+    if len(my_list)>= 1:
+        return my_list[0]
+    return None
+
     # Check if list is not empty, then return first element
     pass
 
@@ -26,6 +30,9 @@ def get_last_element(my_list):
         any: Last element, or None if list is empty
     """
     # Your implementation here
+    if len(my_list) >= 1:
+        return my_list[-1]
+
     # Use negative indexing or length-based indexing
     pass
 
@@ -40,6 +47,7 @@ def get_list_length(my_list):
         int: Number of elements
     """
     # Your implementation here
+    return len(my_list)
     # Use built-in len() function
     pass
 
@@ -54,6 +62,8 @@ def get_middle_element(my_list):
         any: Middle element, or None if even length or empty
     """
     # Your implementation here
+    if len(my_list) % 2 == 1 and len(my_list) > 0:
+        return my_list[len(my_list) // 2]
     # Calculate middle index and return element
     pass
 
@@ -68,6 +78,9 @@ def is_list_empty(my_list):
         bool: True if empty, False otherwise
     """
     # Your implementation here
+    return len(my_list) == 0
+
+
     # Check length or use truthiness
     pass
 
@@ -83,6 +96,13 @@ def get_element_at_position(my_list, index):
         any: Element at index, or None if index invalid
     """
     # Your implementation here
+    if index < 0:
+        index += len(my_list)  # Convert negative index to positive
+    if 0 <= index < len(my_list):
+        return my_list[index]
+    return None
+
+
     # Check bounds before accessing
     pass
 
@@ -98,6 +118,9 @@ def create_number_list(start, end):
         list: List of numbers
     """
     # Your implementation here
+    if start > end:
+        return []
+    return list(range(start, end + 1))
     # Use range() to create sequence
     pass
 
