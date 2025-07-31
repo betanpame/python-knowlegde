@@ -10,6 +10,8 @@ def add_to_end(my_list, item):
         item (any): Item to add
     """
     # Your implementation here
+    my_list.append(item) 
+
     # Use append() method
     pass
 
@@ -22,6 +24,9 @@ def add_to_beginning(my_list, item):
         item (any): Item to add
     """
     # Your implementation here
+    my_list.insert(0, item)
+
+
     # Use insert() method at position 0
     pass
 
@@ -37,6 +42,12 @@ def remove_first_occurrence(my_list, item):
         bool: True if item was removed, False if not found
     """
     # Your implementation here
+    try:
+        my_list.remove(item)
+        return True
+    except ValueError:
+        return False
+
     # Use remove() method with try/except for error handling
     pass
 
@@ -51,6 +62,11 @@ def remove_last_element(my_list):
         any: Last element, or None if list is empty
     """
     # Your implementation here
+    if my_list:
+        return my_list.pop()
+    else:
+        return None 
+    
     # Use pop() method with error handling
     pass
 
@@ -62,6 +78,8 @@ def clear_list(my_list):
         my_list (list): List to clear
     """
     # Your implementation here
+    my_list.clear() 
+
     # Use clear() method
     pass
 
@@ -74,6 +92,8 @@ def add_multiple_items(my_list, items):
         items (list): Items to add
     """
     # Your implementation here
+    my_list.extend(items)
+
     # Use extend() method
     pass
 
@@ -90,6 +110,11 @@ def insert_at_position(my_list, index, item):
         bool: True if successful, False if index invalid
     """
     # Your implementation here
+    if 0 <= index <= len(my_list):
+        my_list.insert(index, item)
+        return True
+    else:
+        return False
     # Use insert() method with bounds checking
     pass
 
@@ -105,6 +130,10 @@ def remove_at_position(my_list, index):
         any: Removed item, or None if index invalid
     """
     # Your implementation here
+    if 0 <= index < len(my_list):
+        return my_list.pop(index)
+    else:
+        return None
     # Use pop() method with index and error handling
     pass
 
