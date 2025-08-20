@@ -59,6 +59,8 @@ All major docs begin with a hidden HTML comment `<!-- COPILOT_CONTEXT_TAGS: ... 
 
 ## 🔗 Core Documentation Map
 
+See the consolidated navigation hub: `DOCS_INDEX.md` (atomic, low‑redundancy).
+
 ### Full Guides
 
 | Doc | Focus |
@@ -75,11 +77,17 @@ All major docs begin with a hidden HTML comment `<!-- COPILOT_CONTEXT_TAGS: ... 
 |-----|-------|
 | `practices-structure-basics.md` | Minimal structure cheat sheet |
 | `practices-heuristics-quality.md` | Heuristic codes & promotion snapshot |
+| `create-practice-quick.md` | New practice checklist |
+| `implementation-skeleton-quick.md` | Python skeleton & status staging |
 | `validation-promotion-flow-quick.md` | Condensed validation & promotion flow |
+| `validation-deep-dive.md` | Full validation checklist expansion |
+| `alternative-strategies-learning.md` | Comparative & learning extensions |
 | `copilot-macros-quick.md` | Macro names & usage boosters |
+| `chat-agent-vs-ask.md` | Mode selection heuristics |
+| `chat-context-techniques.md` | Efficient context injection patterns |
+| `chat-workflow-blueprints.md` | Reusable chat workflow scaffolds |
 | `chat-usage-quick.md` | Agent vs Ask + context packets |
 | `inline-prompts-top10-quick.md` | Top 10 inline prompts |
-| `create-practice-quick.md` | New practice checklist |
 
 ### Supporting / Legacy
 
@@ -87,6 +95,7 @@ All major docs begin with a hidden HTML comment `<!-- COPILOT_CONTEXT_TAGS: ... 
 |-----|-------|
 | `ci_progress.md` | CI automation & badge endpoints |
 | `progressBase.md` | Legacy snapshot example |
+| `DOCS_INDEX.md` | Central atomic docs index |
 
 ## 🧩 Common Copilot Macros (Inline / Agent)
 
