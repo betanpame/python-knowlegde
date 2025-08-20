@@ -1,6 +1,6 @@
+# TODO: Implement password validation function
 import string
 
-# TODO: Implement password validation function
 # Starter code for String Test 3
 
 def validate_password(password):

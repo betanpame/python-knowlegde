@@ -1,0 +1,380 @@
+{
+  "date": "20-08-2025",
+  "totals": {
+    "topics": 11,
+    "tests_per_topic": 20,
+    "possible": 220,
+    "created": 185,
+    "python_files": 37,
+    "resolved": 1,
+    "validated": 1,
+    "percent_created": 84.09,
+    "percent_python_files": 16.82,
+    "percent_resolved": 0.45,
+    "percent_validated": 0.45
+  },
+  "topics": [
+    {
+      "topic": "BuiltinFunctions",
+      "created": 10,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 10,
+      "percent_created": 50.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "ControlFlow",
+      "created": 20,
+      "python_files": 3,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 15.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "DataScience",
+      "created": 7,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 13,
+      "percent_created": 35.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "FileOperations",
+      "created": 20,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "Functions",
+      "created": 20,
+      "python_files": 2,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 10.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "Lists",
+      "created": 20,
+      "python_files": 5,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 25.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "Modules",
+      "created": 20,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "OOP",
+      "created": 20,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "String",
+      "created": 20,
+      "python_files": 20,
+      "resolved": 1,
+      "validated": 1,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 100.0,
+      "percent_resolved": 5.0,
+      "percent_validated": 5.0
+    },
+    {
+      "topic": "Tuples",
+      "created": 20,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
+      "topic": "WebTechnologies",
+      "created": 8,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 12,
+      "percent_created": 40.0,
+      "percent_python": 5.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    }
+  ],
+  "status_breakdown": {
+    "TODO": 36,
+    "RESOLVED": 0,
+    "VALIDATED": 1,
+    "UNCATEGORIZED": 0
+  },
+  "files": [
+    {
+      "path": "tests\\BuiltinFunctions\\1\\test-builtin-functions-1.py",
+      "status": "TODO",
+      "meaningful_loc": 115,
+      "warnings": []
+    },
+    {
+      "path": "tests\\ControlFlow\\1\\test-control-flow-1.py",
+      "status": "TODO",
+      "meaningful_loc": 61,
+      "warnings": []
+    },
+    {
+      "path": "tests\\ControlFlow\\2\\test-control-flow-2.py",
+      "status": "TODO",
+      "meaningful_loc": 69,
+      "warnings": []
+    },
+    {
+      "path": "tests\\ControlFlow\\3\\test-control-flow-3.py",
+      "status": "TODO",
+      "meaningful_loc": 131,
+      "warnings": []
+    },
+    {
+      "path": "tests\\DataScience\\1\\test-numpy-1.py",
+      "status": "TODO",
+      "meaningful_loc": 104,
+      "warnings": []
+    },
+    {
+      "path": "tests\\FileOperations\\1\\test-file-operations-1.py",
+      "status": "TODO",
+      "meaningful_loc": 101,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Functions\\1\\test-functions-1.py",
+      "status": "TODO",
+      "meaningful_loc": 94,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Functions\\2\\test-functions-2.py",
+      "status": "TODO",
+      "meaningful_loc": 104,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Lists\\1\\test-lists-1.py",
+      "status": "TODO",
+      "meaningful_loc": 44,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Lists\\2\\test-lists-2.py",
+      "status": "TODO",
+      "meaningful_loc": 31,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Lists\\3\\test-lists-3.py",
+      "status": "TODO",
+      "meaningful_loc": 142,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Lists\\4\\test-lists-4.py",
+      "status": "TODO",
+      "meaningful_loc": 140,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Lists\\13\\test-lists-13.py",
+      "status": "TODO",
+      "meaningful_loc": 141,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Modules\\1\\test-modules-1.py",
+      "status": "TODO",
+      "meaningful_loc": 78,
+      "warnings": []
+    },
+    {
+      "path": "tests\\OOP\\1\\test-oop-1.py",
+      "status": "TODO",
+      "meaningful_loc": 103,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\1\\test-string-1.py",
+      "status": "VALIDATED",
+      "meaningful_loc": 22,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\2\\test-string-2.py",
+      "status": "TODO",
+      "meaningful_loc": 25,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\3\\test-string-3.py",
+      "status": "TODO",
+      "meaningful_loc": 48,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\4\\test-string-4.py",
+      "status": "TODO",
+      "meaningful_loc": 21,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\5\\test-string-5.py",
+      "status": "TODO",
+      "meaningful_loc": 34,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\6\\test-string-6.py",
+      "status": "TODO",
+      "meaningful_loc": 55,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\7\\test-string-7.py",
+      "status": "TODO",
+      "meaningful_loc": 62,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\8\\test-string-8.py",
+      "status": "TODO",
+      "meaningful_loc": 59,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\9\\test-string-9.py",
+      "status": "TODO",
+      "meaningful_loc": 43,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\10\\test-string-10.py",
+      "status": "TODO",
+      "meaningful_loc": 50,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\11\\test-string-11.py",
+      "status": "TODO",
+      "meaningful_loc": 74,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\12\\test-string-12.py",
+      "status": "TODO",
+      "meaningful_loc": 63,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\13\\test-string-13.py",
+      "status": "TODO",
+      "meaningful_loc": 69,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\14\\test-string-14.py",
+      "status": "TODO",
+      "meaningful_loc": 100,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\15\\test-string-15.py",
+      "status": "TODO",
+      "meaningful_loc": 96,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\16\\test-string-16.py",
+      "status": "TODO",
+      "meaningful_loc": 126,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\17\\test-string-17.py",
+      "status": "TODO",
+      "meaningful_loc": 139,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\18\\test-string-18.py",
+      "status": "TODO",
+      "meaningful_loc": 90,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\19\\test-string-19.py",
+      "status": "TODO",
+      "meaningful_loc": 177,
+      "warnings": []
+    },
+    {
+      "path": "tests\\String\\20\\test-string-20.py",
+      "status": "TODO",
+      "meaningful_loc": 121,
+      "warnings": []
+    },
+    {
+      "path": "tests\\Tuples\\1\\test-tuples-1.py",
+      "status": "TODO",
+      "meaningful_loc": 42,
+      "warnings": []
+    },
+    {
+      "path": "tests\\WebTechnologies\\1\\test-web-tech-1.py",
+      "status": "TODO",
+      "meaningful_loc": 147,
+      "warnings": []
+    }
+  ]
+}
