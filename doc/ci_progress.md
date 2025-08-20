@@ -30,7 +30,7 @@ name: Progress Snapshot
 on:
   push:
     paths:
-      - 'tests/**'
+  - 'tests/**'
       - 'scripts/generate_progress.py'
   workflow_dispatch: {}
   schedule:
@@ -189,10 +189,10 @@ Upgrade is conservative by design to avoid false progress inflation.
 | Column | Meaning |
 |--------|---------|
 | Topic | Topic name |
-| Created | Count of created test folders |
+| Created | Count of created practice folders |
 | PythonFiles | Count with at least one .py file |
-| Resolved | Files RESOLVED or VALIDATED |
-| Validated | Files VALIDATED only |
+| Resolved | Practices RESOLVED or VALIDATED |
+| Validated | Practices VALIDATED only |
 | Remaining | 20 - Created |
 | Created% | % created out of 20 |
 | PythonFile% | % with .py out of 20 |

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Progress generation script.
+"""Progress generation script (Practices domain).
 
 Features:
-- Scans the `tests/` tree to compute per-topic statistics.
+- Scans the `tests/` tree (or legacy `tests/`) to compute per-topic statistics.
 - Distinguishes Created, Python File, Resolved (RESOLVED or VALIDATED), and Validated counts.
 - Applies lightweight validation heuristics on RESOLVED / VALIDATED files.
 - Emits:
@@ -21,7 +21,7 @@ Heuristics (initial version):
   - pass_leftover: RESOLVED/VALIDATED file still contains a lone 'pass' statement.
   - missing_status: Python file missing a recognized leading keyword.
 
-You can extend heuristics later (e.g., run smoke tests, cyclomatic complexity checks, etc.).
+Extendable: add smoke tests, complexity checks, docstring enforcement, etc.
 """
 from __future__ import annotations
 
@@ -281,7 +281,7 @@ def pct_float(part: int, total: int) -> float:
 
 MD_HEADER = """# Study Progress Report ({date})\n\nGenerated automatically by `generate_progress.py`.\n\n---\n\n## 1. Snapshot Summary\n"""
 
-MD_DEFINITIONS = """Definitions:\n\n- Created Test: Folder with markdown created (counts toward curriculum build-out)\n- Python File: At least one `*.py` file exists for that test (implementation started)\n- Status Keywords (first non-empty line of primary `.py` file):\n    - `# TODO:` → Implementation not started / placeholder\n    - `# RESOLVED:` → Implementation written but not yet validated\n    - `# VALIDATED:` → Implementation written & validated\n- Resolved Test: Leading keyword is `# RESOLVED:` or `# VALIDATED:` (Validated is a subset)\n- Validated Test: Leading keyword is `# VALIDATED:` and passes heuristic checks (in future)\n"""
+MD_DEFINITIONS = """Definitions:\n\n- Created Practice: Folder with markdown created (counts toward curriculum build-out)\n- Python File: At least one `*.py` file exists for that practice (implementation started)\n- Status Keywords (first non-empty line of primary `.py` file):\n    - `# TODO:` → Implementation not started / placeholder\n    - `# RESOLVED:` → Implementation written but not yet validated\n    - `# VALIDATED:` → Implementation written & validated\n- Resolved Practice: Leading keyword is `# RESOLVED:` or `# VALIDATED:` (Validated is a subset)\n- Validated Practice: Leading keyword is `# VALIDATED:` and passes heuristic checks (in future)\n"""
 
 def build_markdown(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate, file_statuses: List[FileStatus]) -> str:
     total_possible = TOTAL_PER_TOPIC * len(topic_stats)
@@ -342,7 +342,9 @@ def build_json(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate
         "date": date_str,
         "totals": {
             "topics": len(topic_stats),
+            # Backward compatibility field name retained; new preferred name added below.
             "tests_per_topic": TOTAL_PER_TOPIC,
+            "practices_per_topic": TOTAL_PER_TOPIC,
             "possible": total_possible,
             "created": agg.created,
             "python_files": agg.python_files,
@@ -416,8 +418,8 @@ def write_file(path: str, content: str, binary: bool = False):
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate progress markdown, JSON summary, and badges.")
-    parser.add_argument('--tests-root', default='tests', help='Root directory containing topic folders (default: tests)')
+    parser = argparse.ArgumentParser(description="Generate progress markdown, JSON summary, and badges (practices).")
+    parser.add_argument('--tests-root', default='practices', help='Root directory containing topic folders (default: practices)')
     parser.add_argument('--date', default=None, help='Override date (format DD-MM-YYYY); default: today')
     parser.add_argument('--no-md', action='store_true', help='Skip writing markdown file')
     parser.add_argument('--no-json', action='store_true', help='Skip writing JSON summary file')
@@ -451,13 +453,26 @@ def main(argv: Optional[List[str]] = None) -> int:
     DOCSTRING_ENFORCE = args.enforce_docstrings
     COMPLEXITY_THRESHOLD = args.complexity_threshold
 
-    # Optional creation of missing tests BEFORE collection
+    # Resolve root (support legacy 'tests' directory if 'practices' not present)
+    if not os.path.isdir(args.tests_root):
+        legacy = 'tests'
+        if args.tests_root == 'practices' and os.path.isdir(legacy):
+            print('[info] tests/ not found; falling back to legacy tests/ directory')
+            args.tests_root = legacy
+    else:
+        # If both exist, prefer tests/ but warn about legacy duplication.
+        if args.tests_root == 'practices' and os.path.isdir('tests'):
+            print('[warn] Both tests/ and tests/ exist. Using tests/ (tests/ is legacy).')
+
+    # Optional creation of missing practices BEFORE collection
     if args.create_missing:
         def slugify(topic: str) -> str:
             return re.sub(r'([a-z0-9])([A-Z])', r'\1-\2', topic).lower()
+
         topics_scope = iter_topics(args.tests_root)
         if args.only_topic:
             topics_scope = [t for t in topics_scope if t == args.only_topic]
+
         for topic in topics_scope:
             topic_path = os.path.join(args.tests_root, topic)
             existing_indices = {int(d) for d in os.listdir(topic_path) if d.isdigit()}
@@ -467,31 +482,30 @@ def main(argv: Optional[List[str]] = None) -> int:
                 folder = os.path.join(topic_path, str(idx))
                 os.makedirs(folder, exist_ok=True)
                 slug = slugify(topic)
-                md_name = f"test-{slug}-{idx}.md"
+                md_name = f"practice-{slug}-{idx}.md"
                 md_path = os.path.join(folder, md_name)
                 if not os.path.exists(md_path):
                     md_content = (
-                        f"# {topic} Test {idx}\n\n"
+                        f"# {topic} Practice {idx}\n\n"
                         "## Description\n\n<add description>\n\n"
                         "## Objectives\n\n- Objective 1\n- Objective 2\n\n"
                         "## Tasks\n\n1. Task one\n2. Task two\n\n"
                         "## Examples\n\n```python\n# examples here\n```\n\n"
                         "## Hints\n\n- Hint one\n\n"
-                        "## Test Cases\n\n- Case 1\n\n"
+                        "## Practice Cases\n\n- Case 1\n\n"
                         "## Bonus\n\n- Stretch idea\n"
                     )
                     with open(md_path, 'w', encoding='utf-8') as mf:
                         mf.write(md_content)
                 if args.create_with_py:
-                    py_name = f"test-{slug}-{idx}.py"
+                    py_name = f"practice-{slug}-{idx}.py"
                     py_path = os.path.join(folder, py_name)
                     if not os.path.exists(py_path):
                         with open(py_path, 'w', encoding='utf-8') as pf:
-                            pf.write("# TODO: Implement solution for this test\n\n")
-        print('[created] Missing test folders initialized.')
-
+                            pf.write("# TODO: Implement solution for this practice\n\n")
+        print('[created] Missing practice folders initialized.')
+    # Initial collection after potential creation (or fallback)
     test_slots, topic_stats, agg, file_statuses = collect(args.tests_root, do_smoke=args.smoke, only_topic=args.only_topic)
-
     # Harness generation (listing functions/classes) for a topic
     if args.generate_harness:
         harness_topic = args.generate_harness
@@ -633,7 +647,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
         # Delta markdown (only if there are new items)
         if new_items:
-            delta_md_lines = [f"# Newly Completed Tests ({date_str})\n", f"Generated by generate_progress.py\n", "", "## New Resolved / Validated", ""]
+            delta_md_lines = [f"# Newly Completed Practices ({date_str})\n", f"Generated by generate_progress.py\n", "", "## New Resolved / Validated", ""]
             for ident in new_items:
                 delta_md_lines.append(f"- {ident}")
             delta_md_lines.append("")
@@ -641,10 +655,10 @@ def main(argv: Optional[List[str]] = None) -> int:
             write_file(delta_path, "\n".join(delta_md_lines))
             print(f'[written] {delta_path}')
         else:
-            print('[info] No newly resolved tests this run.')
+            print('[info] No newly resolved practices this run.')
 
         # Cumulative markdown (always overwrite)
-        cumulative_lines = ["# All Completed (Resolved or Validated) Tests\n", "| Test | First Seen |", "|------|------------|"]
+        cumulative_lines = ["# All Completed (Resolved or Validated) Practices\n", "| Practice | First Seen |", "|------|------------|"]
         for ident in sorted(history_data.keys(), key=lambda k: (history_data[k], k)):
             cumulative_lines.append(f"| {ident} | {history_data[ident]} |")
         cumulative_lines.append("")

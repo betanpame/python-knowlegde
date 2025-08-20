@@ -8,14 +8,14 @@ This document captures your current progress across all Python knowledge topics 
 
 Definitions:
 
-- Created Test: Folder with markdown created (counts toward curriculum build-out)
+- Created Practice: Folder with markdown created (counts toward curriculum build-out)
 - Python File: A `*.py` file exists for that test (implementation started)
 - Status Keywords (first non-empty line of `.py` file):
     - `# TODO:` → Implementation not started / still placeholder
     - `# RESOLVED:` → Implementation written but not yet validated against rubric/test criteria
     - `# VALIDATED:` → Implementation written and manually (or automatically) validated
-- Resolved Test: `.py` file whose leading keyword is either `# RESOLVED:` or `# VALIDATED:` (Validated is a superset)
-- Validated Test: `.py` file whose leading keyword is `# VALIDATED:` and (future heuristic) passes quality checks (no lingering TODO/pass placeholders)
+- Resolved Practice: `.py` file whose leading keyword is either `# RESOLVED:` or `# VALIDATED:` (Validated is a superset)
+- Validated Practice: `.py` file whose leading keyword is `# VALIDATED:` and (future heuristic) passes quality checks (no lingering TODO/pass placeholders)
 
 
 | Topic | Created | Python Files | Resolved | Validated | Remaining (Created) | Created % | Python File % | Resolved % | Validated % |
@@ -66,7 +66,7 @@ Heuristic for future automation (planned):
 1. Detect leading keyword.
 2. Flag contradictions (e.g., `# VALIDATED:` but file still contains `# TODO:` later).
 3. Count meaningful implementation lines (exclude comments/blank) to guard against empty RESOLVED claims.
-4. Optional: integrate simple runtime smoke tests per topic.
+4. Optional: integrate simple runtime smoke practices per topic.
 
 ---
 
@@ -132,7 +132,7 @@ Suggested order: HTTP concepts depth, authentication, sessions/cookies, async (a
 
 ## 3. Suggested Next 6 Sessions Roadmap
 
-| Session | Goal | Target Tests | Success Metric |
+| Session | Goal | Target Practices | Success Metric |
 |---------|------|--------------|----------------|
 | 1 | Resume BuiltinFunctions | 11–13 | 3 tests added |
 | 2 | BuiltinFunctions Wrap-Up | 14–16 | +3 tests (16/20) |
@@ -186,7 +186,7 @@ def generate():
     now = datetime.datetime.now().strftime('%d-%m-%Y')
     lines = []
     lines.append(f"# Study Progress Report ({now})\n")
-    lines.append("| Topic | Completed Tests | Remaining | Completion % |")
+    lines.append("| Topic | Completed Practices | Remaining | Completion % |")
     lines.append("|-------|-----------------|-----------|--------------|")
     for topic, done_count, remaining, _ in data:
         pct = (done_count / TOTAL_PER_TOPIC) * 100
@@ -256,10 +256,10 @@ progress = !python generate_progress.py && git add doc/progress$(date +%d_%m_%Y)
 
 ---
 
-## 6. Definition of Done (Per Test)
+## 6. Definition of Done (Per Practice)
 
 - Folder exists: `tests/<Topic>/<n>/`
-- Markdown file includes: Description, Objectives, Tasks, Examples, Hints, Test Cases, Bonus
+- Markdown file includes: Description, Objectives, Tasks, Examples, Hints, Practice Cases, Bonus
 - (If applicable) `.py` runnable example present
 - Content follows progressive difficulty taxonomy
 

@@ -3,6 +3,7 @@
   "totals": {
     "topics": 11,
     "tests_per_topic": 20,
+    "practices_per_topic": 20,
     "possible": 220,
     "created": 185,
     "python_files": 37,

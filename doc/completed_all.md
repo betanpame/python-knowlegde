@@ -1,5 +1,5 @@
-# All Completed (Resolved or Validated) Tests
+# All Completed (Resolved or Validated) Practices
 
-| Test | First Seen |
+| Practice | First Seen |
 |------|------------|
 | String/1 | 20-08-2025 |
