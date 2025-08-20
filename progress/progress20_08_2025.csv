@@ -1,0 +1,13 @@
+Topic,Capacity,Created,PythonFiles,Resolved,Validated,Remaining,Created%,PythonFile%,Resolved%,Validated%
+BuiltinFunctions,10,10,1,0,0,0,100.0,10.0,0.0,0.0
+ControlFlow,20,20,3,0,0,0,100.0,15.0,0.0,0.0
+DataScience,20,7,0,0,0,13,35.0,0.0,0.0,0.0
+FileOperations,21,21,1,0,0,0,100.0,4.8,0.0,0.0
+Functions,20,20,2,0,0,0,100.0,10.0,0.0,0.0
+Lists,20,20,5,0,0,0,100.0,25.0,0.0,0.0
+Modules,20,20,1,0,0,0,100.0,5.0,0.0,0.0
+NumPy,1,1,1,0,0,0,100.0,100.0,0.0,0.0
+OOP,20,20,1,0,0,0,100.0,5.0,0.0,0.0
+String,20,20,20,1,1,0,100.0,100.0,5.0,5.0
+Tuples,20,20,1,0,0,0,100.0,5.0,0.0,0.0
+WebTechnologies,20,8,1,0,0,12,40.0,5.0,0.0,0.0

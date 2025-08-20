@@ -6,8 +6,8 @@ Features:
 - Distinguishes Created, Python File, Resolved (RESOLVED or VALIDATED), and Validated counts.
 - Applies lightweight validation heuristics on RESOLVED / VALIDATED files.
 - Emits:
-  * Markdown report: doc/progressDD_MM_YYYY.md
-  * JSON summary:   doc/progressDD_MM_YYYY.json
+    * Markdown report: progress/progressDD_MM_YYYY.md
+    * JSON summary:   progress/progressDD_MM_YYYY.json
   * Shields.io style badge JSON: badges/validated.json & badges/resolved.json
 
 Status keywords (first non-empty line of a .py file):
@@ -36,7 +36,8 @@ import csv
 import ast
 from typing import Dict, List, Optional, Tuple, Any, Set
 
-TOTAL_PER_TOPIC = 20
+# Historical default (kept for backward compatibility), but practice counts are now dynamic.
+DEFAULT_LEGACY_TOTAL_PER_TOPIC = 20
 STATUS_KEYWORDS = ("# TODO:", "# RESOLVED:", "# VALIDATED:")
 VALID_STATUS_SET = {"TODO", "RESOLVED", "VALIDATED"}
 
@@ -63,11 +64,12 @@ class TestSlot:
 @dataclasses.dataclass
 class TopicStats:
     topic: str
+    capacity: int  # Highest numbered practice directory discovered (dynamic)
     created: int
     python_files: int
     resolved: int
     validated: int
-    remaining: int
+    remaining: int  # capacity - created
 
 @dataclasses.dataclass
 class Aggregate:
@@ -200,8 +202,12 @@ def collect(tests_root: str, do_smoke: bool = False, only_topic: Optional[str] =
         topic_path = os.path.join(tests_root, topic)
         test_dirs = iter_test_dirs(topic_path)
         created_set = {idx for idx, _ in test_dirs}
+        if created_set:
+            capacity = max(created_set)
+        else:
+            capacity = 0
 
-        for idx in range(1, TOTAL_PER_TOPIC + 1):
+        for idx in range(1, capacity + 1):
             created = idx in created_set
             python_files: List[str] = []
             status_obj: Optional[FileStatus] = None
@@ -246,13 +252,18 @@ def collect(tests_root: str, do_smoke: bool = False, only_topic: Optional[str] =
     topic_stats: Dict[str, TopicStats] = {}
     for topic in topics_iter:
         topic_slots = [s for s in test_slots if s.topic == topic]
+        if topic_slots:
+            capacity = max(s.index for s in topic_slots)
+        else:
+            capacity = 0
         created_count = sum(1 for s in topic_slots if s.created)
         python_file_count = sum(1 for s in topic_slots if s.python_files)
         resolved_count = sum(1 for s in topic_slots if (s.file_status and s.file_status.status in {"RESOLVED", "VALIDATED"}))
         validated_count = sum(1 for s in topic_slots if (s.file_status and s.file_status.status == "VALIDATED"))
-        remaining = TOTAL_PER_TOPIC - created_count
+        remaining = max(capacity - created_count, 0)
         topic_stats[topic] = TopicStats(
             topic=topic,
+            capacity=capacity,
             created=created_count,
             python_files=python_file_count,
             resolved=resolved_count,
@@ -284,7 +295,7 @@ MD_HEADER = """# Study Progress Report ({date})\n\nGenerated automatically by `g
 MD_DEFINITIONS = """Definitions:\n\n- Created Practice: Folder with markdown created (counts toward curriculum build-out)\n- Python File: At least one `*.py` file exists for that practice (implementation started)\n- Status Keywords (first non-empty line of primary `.py` file):\n    - `# TODO:` → Implementation not started / placeholder\n    - `# RESOLVED:` → Implementation written but not yet validated\n    - `# VALIDATED:` → Implementation written & validated\n- Resolved Practice: Leading keyword is `# RESOLVED:` or `# VALIDATED:` (Validated is a subset)\n- Validated Practice: Leading keyword is `# VALIDATED:` and passes heuristic checks (in future)\n"""
 
 def build_markdown(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate, file_statuses: List[FileStatus]) -> str:
-    total_possible = TOTAL_PER_TOPIC * len(topic_stats)
+    total_possible = sum(t.capacity for t in topic_stats.values()) or 0
     # Status breakdown counts
     counts = {"TODO":0, "RESOLVED":0, "VALIDATED":0, "UNCATEGORIZED":0}
     for fs in file_statuses:
@@ -293,20 +304,24 @@ def build_markdown(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggre
     lines: List[str] = []
     lines.append(MD_HEADER.format(date=date_str))
     lines.append(MD_DEFINITIONS)
-    lines.append("\n| Topic | Created | Python Files | Resolved | Validated | Remaining (Created) | Created % | Python File % | Resolved % | Validated % |")
-    lines.append("|-------|---------|--------------|----------|-----------|---------------------|-----------|---------------|------------|-------------|")
+    lines.append("\n| Topic | Capacity | Created | Python Files | Resolved | Validated | Remaining | Created % | Python File % | Resolved % | Validated % |")
+    lines.append("|-------|----------|---------|--------------|----------|-----------|-----------|-----------|---------------|------------|-------------|")
 
     for topic in sorted(topic_stats):
         t = topic_stats[topic]
+        cap = t.capacity or 1  # avoid div zero in pct
         lines.append(
-            f"| {t.topic} | {t.created} | {t.python_files} | {t.resolved} | {t.validated} | {t.remaining} | "
-            f"{pct(t.created, TOTAL_PER_TOPIC)} | {pct(t.python_files, TOTAL_PER_TOPIC)} | {pct(t.resolved, TOTAL_PER_TOPIC)} | {pct(t.validated, TOTAL_PER_TOPIC)} |"
+            f"| {t.topic} | {t.capacity} | {t.created} | {t.python_files} | {t.resolved} | {t.validated} | {t.remaining} | "
+            f"{pct(t.created, cap)} | {pct(t.python_files, cap)} | {pct(t.resolved, cap)} | {pct(t.validated, cap)} |"
         )
 
-    lines.append(f"\n**Overall Created Progress:** {agg.created} / {total_possible} = **{agg.created/total_possible*100:.1f}%**")
-    lines.append(f"\n**Overall Python File Coverage:** {agg.python_files} / {total_possible} = **{agg.python_files/total_possible*100:.1f}%**")
-    lines.append(f"\n**Overall Resolved Progress:** {agg.resolved} / {total_possible} = **{agg.resolved/total_possible*100:.1f}%**")
-    lines.append(f"\n**Overall Validated Progress:** {agg.validated} / {total_possible} = **{agg.validated/total_possible*100:.1f}%**")
+    if total_possible > 0:
+        lines.append(f"\n**Overall Created Progress:** {agg.created} / {total_possible} = **{agg.created/total_possible*100:.1f}%**")
+        lines.append(f"\n**Overall Python File Coverage:** {agg.python_files} / {total_possible} = **{agg.python_files/total_possible*100:.1f}%**")
+        lines.append(f"\n**Overall Resolved Progress:** {agg.resolved} / {total_possible} = **{agg.resolved/total_possible*100:.1f}%**")
+        lines.append(f"\n**Overall Validated Progress:** {agg.validated} / {total_possible} = **{agg.validated/total_possible*100:.1f}%**")
+    else:
+        lines.append("\n_No capacity discovered (no practice folders)._")
 
     lines.append("\nStatus Breakdown (by leading keyword in primary `.py` files):\n")
     for key in ["TODO", "RESOLVED", "VALIDATED", "UNCATEGORIZED"]:
@@ -333,7 +348,7 @@ def build_markdown(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggre
 # ------------------------------ JSON Output --------------------------------- #
 
 def build_json(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate, file_statuses: List[FileStatus]) -> Dict:
-    total_possible = TOTAL_PER_TOPIC * len(topic_stats)
+    total_possible = sum(t.capacity for t in topic_stats.values()) or 0
     status_counts = {"TODO":0, "RESOLVED":0, "VALIDATED":0, "UNCATEGORIZED":0}
     for fs in file_statuses:
         status_counts[fs.status] = status_counts.get(fs.status, 0) + 1
@@ -342,9 +357,10 @@ def build_json(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate
         "date": date_str,
         "totals": {
             "topics": len(topic_stats),
-            # Backward compatibility field name retained; new preferred name added below.
-            "tests_per_topic": TOTAL_PER_TOPIC,
-            "practices_per_topic": TOTAL_PER_TOPIC,
+            # Legacy fields kept for compatibility; values reflect previous fixed assumption.
+            "tests_per_topic": None,
+            "practices_per_topic": None,
+            "dynamic_capacities": True,
             "possible": total_possible,
             "created": agg.created,
             "python_files": agg.python_files,
@@ -370,17 +386,19 @@ def build_json(date_str: str, topic_stats: Dict[str, TopicStats], agg: Aggregate
 
     for topic in sorted(topic_stats):
         t = topic_stats[topic]
+        cap = t.capacity or 0
         data["topics"].append({
             "topic": t.topic,
+            "capacity": cap,
             "created": t.created,
             "python_files": t.python_files,
             "resolved": t.resolved,
             "validated": t.validated,
             "remaining": t.remaining,
-            "percent_created": round(pct_float(t.created, TOTAL_PER_TOPIC), 2),
-            "percent_python": round(pct_float(t.python_files, TOTAL_PER_TOPIC), 2),
-            "percent_resolved": round(pct_float(t.resolved, TOTAL_PER_TOPIC), 2),
-            "percent_validated": round(pct_float(t.validated, TOTAL_PER_TOPIC), 2),
+            "percent_created": round(pct_float(t.created, cap), 2) if cap else 0.0,
+            "percent_python": round(pct_float(t.python_files, cap), 2) if cap else 0.0,
+            "percent_resolved": round(pct_float(t.resolved, cap), 2) if cap else 0.0,
+            "percent_validated": round(pct_float(t.validated, cap), 2) if cap else 0.0,
         })
 
     return data
@@ -468,15 +486,15 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.create_missing:
         def slugify(topic: str) -> str:
             return re.sub(r'([a-z0-9])([A-Z])', r'\1-\2', topic).lower()
-
         topics_scope = iter_topics(args.tests_root)
         if args.only_topic:
             topics_scope = [t for t in topics_scope if t == args.only_topic]
-
         for topic in topics_scope:
             topic_path = os.path.join(args.tests_root, topic)
             existing_indices = {int(d) for d in os.listdir(topic_path) if d.isdigit()}
-            for idx in range(1, TOTAL_PER_TOPIC + 1):
+            existing_max = max(existing_indices) if existing_indices else 0
+            target_upper = max(existing_max, DEFAULT_LEGACY_TOTAL_PER_TOPIC)
+            for idx in range(1, target_upper + 1):
                 if idx in existing_indices:
                     continue
                 folder = os.path.join(topic_path, str(idx))
@@ -594,27 +612,34 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     date_token = date_str.replace('-', '_')
 
+    # Output directory (updated): store progress artifacts under root-level progress/
+    # Backward compatibility: previously these lived under docs/progress/
+    progress_dir = 'progress'
+    legacy_progress_dir = os.path.join('docs', 'progress')
+    if os.path.isdir(legacy_progress_dir) and not os.path.isdir(progress_dir):
+        # We do NOT auto-move to avoid accidental git history churn; just inform.
+        print('[info] Legacy directory docs/progress/ detected; new artifacts now write to progress/. Consider migrating or cleaning up old files.')
     if not args.no_md:
-        md_path = os.path.join('doc', f'progress{date_token}.md')
+        md_path = os.path.join(progress_dir, f'progress{date_token}.md')
         write_file(md_path, md)
         print(f'[written] {md_path}')
     if not args.no_json:
-        json_path = os.path.join('doc', f'progress{date_token}.json')
+        json_path = os.path.join(progress_dir, f'progress{date_token}.json')
         write_file(json_path, json.dumps(summary_json, indent=2, ensure_ascii=False) + '\n')
         print(f'[written] {json_path}')
     if args.export_csv:
-        csv_path = os.path.join('doc', f'progress{date_token}.csv')
+        csv_path = os.path.join(progress_dir, f'progress{date_token}.csv')
         with open(csv_path, 'w', newline='', encoding='utf-8') as cf:
             writer = csv.writer(cf)
-            writer.writerow(['Topic','Created','PythonFiles','Resolved','Validated','Remaining','Created%','PythonFile%','Resolved%','Validated%'])
+            writer.writerow(['Topic','Capacity','Created','PythonFiles','Resolved','Validated','Remaining','Created%','PythonFile%','Resolved%','Validated%'])
             for topic in sorted(topic_stats):
                 t = topic_stats[topic]
+                cap = t.capacity or 0
+                def fmt(val):
+                    return f"{pct_float(val, cap):.1f}" if cap else '0.0'
                 writer.writerow([
-                    t.topic, t.created, t.python_files, t.resolved, t.validated, t.remaining,
-                    f"{pct_float(t.created, TOTAL_PER_TOPIC):.1f}",
-                    f"{pct_float(t.python_files, TOTAL_PER_TOPIC):.1f}",
-                    f"{pct_float(t.resolved, TOTAL_PER_TOPIC):.1f}",
-                    f"{pct_float(t.validated, TOTAL_PER_TOPIC):.1f}",
+                    t.topic, t.capacity, t.created, t.python_files, t.resolved, t.validated, t.remaining,
+                    fmt(t.created), fmt(t.python_files), fmt(t.resolved), fmt(t.validated)
                 ])
         print(f'[written] {csv_path}')
 
@@ -646,23 +671,39 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(f'[updated] {history_path} (total resolved tracked: {len(history_data)})')
 
         # Delta markdown (only if there are new items)
+        delta_path = os.path.join(progress_dir, f'completed_delta_{date_token}.md')
         if new_items:
-            delta_md_lines = [f"# Newly Completed Practices ({date_str})\n", f"Generated by generate_progress.py\n", "", "## New Resolved / Validated", ""]
+            delta_md_lines = [
+                f"# Newly Completed Practices ({date_str})\n",
+                "Generated by generate_progress.py\n",
+                "",
+                "## New Resolved / Validated",
+                "",
+            ]
             for ident in new_items:
                 delta_md_lines.append(f"- {ident}")
             delta_md_lines.append("")
-            delta_path = os.path.join('doc', f'completed_delta_{date_token}.md')
             write_file(delta_path, "\n".join(delta_md_lines))
             print(f'[written] {delta_path}')
         else:
-            print('[info] No newly resolved practices this run.')
+            # Always materialize a delta file so downstream tooling can rely on its presence.
+            empty_delta = [
+                f"# Newly Completed Practices ({date_str})\n",
+                "Generated by generate_progress.py\n",
+                "",
+                "## New Resolved / Validated",
+                "",
+                "_No new resolved or validated practices in this run._\n",
+            ]
+            write_file(delta_path, "\n".join(empty_delta))
+            print(f'[written-empty] {delta_path} (no new items)')
 
         # Cumulative markdown (always overwrite)
         cumulative_lines = ["# All Completed (Resolved or Validated) Practices\n", "| Practice | First Seen |", "|------|------------|"]
         for ident in sorted(history_data.keys(), key=lambda k: (history_data[k], k)):
             cumulative_lines.append(f"| {ident} | {history_data[ident]} |")
         cumulative_lines.append("")
-        cumulative_path = os.path.join('doc', 'completed_all.md')
+        cumulative_path = os.path.join(progress_dir, 'completed_all.md')
         write_file(cumulative_path, "\n".join(cumulative_lines))
         print(f'[written] {cumulative_path}')
     if not args.no_badges:

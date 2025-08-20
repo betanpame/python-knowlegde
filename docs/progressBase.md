@@ -1,4 +1,7 @@
+<!-- COPILOT_CONTEXT_TAGS: legacy-progress, snapshot, roadmap -->
 # Study Progress Report (20-08-2025)
+
+> Legacy Note: Current progress and completion artifacts now live under the root `progress/` directory (previously `docs/progress/`). This file is retained for historical reference.
 
 This document captures your current progress across all Python knowledge topics and provides a replicable procedure to regenerate and update progress in future study sessions.
 
@@ -156,7 +159,7 @@ You can recreate an updated progress file any time with the following reproducib
 3. Mark which indices exist (completed) and which are missing (remaining).
 4. Compute completion percentage: `(completed / 20) * 100`.
 5. Sum totals across all topics for overall completion.
-6. Create a new file in `doc/` named: `progressDD_MM_YYYY.md`.
+6. Create a new file in `progress/` named: `progressDD_MM_YYYY.md`.
 7. Fill sections: Summary Table, Topic Breakdown, Roadmap.
 
 ### B. Semi-Automated (Python Script)
@@ -199,7 +202,7 @@ def generate():
         lines.append("### Suggested Focus Order\n")
         for topic, rem in backlog:
             lines.append(f"- {topic}: {rem} remaining")
-    filename = f"doc/progress{now.replace('-', '_')}.md"
+    filename = f"progress/progress{now.replace('-', '_')}.md"
     os.makedirs('doc', exist_ok=True)
     with open(filename, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
@@ -233,7 +236,7 @@ foreach ($t in $topics) {
 }
 $overall = [math]::Round(($totalDone/$totalAll)*100,1)
 $today = Get-Date -Format 'dd_MM_yyyy'
-@("# Study Progress Report ($today)", $lines, "", "Overall: $totalDone / $totalAll ($overall% )") | Out-File "doc/progress$today.md" -Encoding utf8
+@("# Study Progress Report ($today)", $lines, "", "Overall: $totalDone / $totalAll ($overall% )") | Out-File "progress/progress$today.md" -Encoding utf8
 ```
 
 ### D. Git Alias (Optional)
@@ -242,7 +245,7 @@ Add to your global `.gitconfig` for quick diff-based progress (counts added fold
 
 ```ini
 [alias]
-progress = !python generate_progress.py && git add doc/progress$(date +%d_%m_%Y).md
+progress = !python generate_progress.py && git add progress/progress$(date +%d_%m_%Y).md
 ```
 (Adjust for Windows using a bash-compatible environment like Git Bash.)
 
@@ -312,3 +315,11 @@ You're 84% done—entering refinement phase. Prioritize breadth completion (fini
 ---
 
 *Generated automatically on 20-08-2025.*
+
+---
+### Related Docs
+* Current progress automation: `ci_progress.md` (tags: progress, ci)
+* Structure & heuristics: `PRACTICES_STRUCTURE.md` (tags: structure, heuristics)
+* Chat usage strategies: `COPILOT_CHAT_USAGE.md` (tags: chat-usage)
+* Implementation & validation: `COPILOT_IMPLEMENT_PRACTICE.md` (tags: validate)
+* Inline prompt library: `COPILOT_INLINE_PROMPTS.md` (tags: inline-prompts)

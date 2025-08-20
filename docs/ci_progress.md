@@ -1,3 +1,4 @@
+<!-- COPILOT_CONTEXT_TAGS: progress, ci, automation, badges -->
 # CI Integration for Progress Reports
 
 This guide explains how to automate generation of the progress report, JSON summary, and Shields.io badges via GitHub Actions.
@@ -6,8 +7,8 @@ This guide explains how to automate generation of the progress report, JSON summ
 
 The script `scripts/generate_progress.py` produces:
 
-- `doc/progressDD_MM_YYYY.md` – Markdown snapshot
-- `doc/progressDD_MM_YYYY.json` – Machine‑readable summary
+- `progress/progressDD_MM_YYYY.md` – Markdown snapshot
+- `progress/progressDD_MM_YYYY.json` – Machine‑readable summary
 - `badges/resolved.json` – Shields endpoint for resolved progress
 - `badges/validated.json` – Shields endpoint for validated progress
 
@@ -59,7 +60,7 @@ jobs:
           if git diff --quiet; then
             echo 'No changes.'
           else
-            git add doc/progress*.md doc/progress*.json badges/*.json
+            git add progress/progress*.md progress/progress*.json badges/*.json
             git commit -m 'chore: automated progress snapshot'
             git push
           fi
@@ -84,8 +85,8 @@ Create `.git/hooks/pre-commit` (Unix environments):
 ```bash
 #!/usr/bin/env bash
 python scripts/generate_progress.py --no-badges --stdout > /dev/null
-if ! git diff --quiet doc/progress*.md; then
-  git add doc/progress*.md doc/progress*.json
+if ! git diff --quiet progress/progress*.md; then
+  git add progress/progress*.md progress/progress*.json
 fi
 ```
 
@@ -158,13 +159,13 @@ python scripts/generate_progress.py --generate-harness String
 Inspect cumulative resolved/validated list:
 
 ```bash
-type doc/completed_all.md
+type progress/completed_all.md
 ```
 
 View delta (newly completed this run) if present:
 
 ```bash
-type doc/completed_delta_$(Get-Date -Format 'dd_MM_yyyy').md
+type progress/completed_delta_$(Get-Date -Format 'dd_MM_yyyy').md
 ```
 
 ---
@@ -202,3 +203,11 @@ Upgrade is conservative by design to avoid false progress inflation.
 ---
 
 Stay intentional: use delta files to direct daily focus; celebrate each VALIDATED increment.
+
+---
+### Related Docs
+* Practice structure: `PRACTICES_STRUCTURE.md` (tags: structure, heuristics)
+* Chat usage & context: `COPILOT_CHAT_USAGE.md` (tags: chat-usage)
+* Creation workflow: `COPILOT_CREATE_PRACTICE.md` (tags: create)
+* Implementation & validation: `COPILOT_IMPLEMENT_PRACTICE.md` (tags: implement, validate)
+* Inline prompt library: `COPILOT_INLINE_PROMPTS.md` (tags: inline-prompts)

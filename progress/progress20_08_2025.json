@@ -1,34 +1,37 @@
 {
   "date": "20-08-2025",
   "totals": {
-    "topics": 11,
-    "tests_per_topic": 20,
-    "practices_per_topic": 20,
-    "possible": 220,
-    "created": 185,
+    "topics": 12,
+    "tests_per_topic": null,
+    "practices_per_topic": null,
+    "dynamic_capacities": true,
+    "possible": 212,
+    "created": 187,
     "python_files": 37,
     "resolved": 1,
     "validated": 1,
-    "percent_created": 84.09,
-    "percent_python_files": 16.82,
-    "percent_resolved": 0.45,
-    "percent_validated": 0.45
+    "percent_created": 88.21,
+    "percent_python_files": 17.45,
+    "percent_resolved": 0.47,
+    "percent_validated": 0.47
   },
   "topics": [
     {
       "topic": "BuiltinFunctions",
+      "capacity": 10,
       "created": 10,
       "python_files": 1,
       "resolved": 0,
       "validated": 0,
-      "remaining": 10,
-      "percent_created": 50.0,
-      "percent_python": 5.0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 10.0,
       "percent_resolved": 0.0,
       "percent_validated": 0.0
     },
     {
       "topic": "ControlFlow",
+      "capacity": 20,
       "created": 20,
       "python_files": 3,
       "resolved": 0,
@@ -41,30 +44,33 @@
     },
     {
       "topic": "DataScience",
+      "capacity": 20,
       "created": 7,
-      "python_files": 1,
+      "python_files": 0,
       "resolved": 0,
       "validated": 0,
       "remaining": 13,
       "percent_created": 35.0,
-      "percent_python": 5.0,
+      "percent_python": 0.0,
       "percent_resolved": 0.0,
       "percent_validated": 0.0
     },
     {
       "topic": "FileOperations",
-      "created": 20,
+      "capacity": 21,
+      "created": 21,
       "python_files": 1,
       "resolved": 0,
       "validated": 0,
       "remaining": 0,
       "percent_created": 100.0,
-      "percent_python": 5.0,
+      "percent_python": 4.76,
       "percent_resolved": 0.0,
       "percent_validated": 0.0
     },
     {
       "topic": "Functions",
+      "capacity": 20,
       "created": 20,
       "python_files": 2,
       "resolved": 0,
@@ -77,6 +83,7 @@
     },
     {
       "topic": "Lists",
+      "capacity": 20,
       "created": 20,
       "python_files": 5,
       "resolved": 0,
@@ -89,6 +96,7 @@
     },
     {
       "topic": "Modules",
+      "capacity": 20,
       "created": 20,
       "python_files": 1,
       "resolved": 0,
@@ -100,7 +108,21 @@
       "percent_validated": 0.0
     },
     {
+      "topic": "NumPy",
+      "capacity": 1,
+      "created": 1,
+      "python_files": 1,
+      "resolved": 0,
+      "validated": 0,
+      "remaining": 0,
+      "percent_created": 100.0,
+      "percent_python": 100.0,
+      "percent_resolved": 0.0,
+      "percent_validated": 0.0
+    },
+    {
       "topic": "OOP",
+      "capacity": 20,
       "created": 20,
       "python_files": 1,
       "resolved": 0,
@@ -113,6 +135,7 @@
     },
     {
       "topic": "String",
+      "capacity": 20,
       "created": 20,
       "python_files": 20,
       "resolved": 1,
@@ -125,6 +148,7 @@
     },
     {
       "topic": "Tuples",
+      "capacity": 20,
       "created": 20,
       "python_files": 1,
       "resolved": 0,
@@ -137,6 +161,7 @@
     },
     {
       "topic": "WebTechnologies",
+      "capacity": 20,
       "created": 8,
       "python_files": 1,
       "resolved": 0,
@@ -156,223 +181,223 @@
   },
   "files": [
     {
-      "path": "tests\\BuiltinFunctions\\1\\test-builtin-functions-1.py",
+      "path": "practices\\BuiltinFunctions\\1\\practice-builtin-functions-1.py",
       "status": "TODO",
       "meaningful_loc": 115,
       "warnings": []
     },
     {
-      "path": "tests\\ControlFlow\\1\\test-control-flow-1.py",
+      "path": "practices\\ControlFlow\\1\\practice-control-flow-1.py",
       "status": "TODO",
       "meaningful_loc": 61,
       "warnings": []
     },
     {
-      "path": "tests\\ControlFlow\\2\\test-control-flow-2.py",
+      "path": "practices\\ControlFlow\\2\\practice-control-flow-2.py",
       "status": "TODO",
       "meaningful_loc": 69,
       "warnings": []
     },
     {
-      "path": "tests\\ControlFlow\\3\\test-control-flow-3.py",
+      "path": "practices\\ControlFlow\\3\\practice-control-flow-3.py",
       "status": "TODO",
       "meaningful_loc": 131,
       "warnings": []
     },
     {
-      "path": "tests\\DataScience\\1\\test-numpy-1.py",
-      "status": "TODO",
-      "meaningful_loc": 104,
-      "warnings": []
-    },
-    {
-      "path": "tests\\FileOperations\\1\\test-file-operations-1.py",
+      "path": "practices\\FileOperations\\21\\practice-file-operations-21.py",
       "status": "TODO",
       "meaningful_loc": 101,
       "warnings": []
     },
     {
-      "path": "tests\\Functions\\1\\test-functions-1.py",
+      "path": "practices\\Functions\\1\\practice-functions-1.py",
       "status": "TODO",
       "meaningful_loc": 94,
       "warnings": []
     },
     {
-      "path": "tests\\Functions\\2\\test-functions-2.py",
+      "path": "practices\\Functions\\2\\practice-functions-2.py",
       "status": "TODO",
       "meaningful_loc": 104,
       "warnings": []
     },
     {
-      "path": "tests\\Lists\\1\\test-lists-1.py",
+      "path": "practices\\Lists\\1\\practice-lists-1.py",
       "status": "TODO",
       "meaningful_loc": 44,
       "warnings": []
     },
     {
-      "path": "tests\\Lists\\2\\test-lists-2.py",
+      "path": "practices\\Lists\\2\\practice-lists-2.py",
       "status": "TODO",
       "meaningful_loc": 31,
       "warnings": []
     },
     {
-      "path": "tests\\Lists\\3\\test-lists-3.py",
+      "path": "practices\\Lists\\3\\practice-lists-3.py",
       "status": "TODO",
       "meaningful_loc": 142,
       "warnings": []
     },
     {
-      "path": "tests\\Lists\\4\\test-lists-4.py",
+      "path": "practices\\Lists\\4\\practice-lists-4.py",
       "status": "TODO",
       "meaningful_loc": 140,
       "warnings": []
     },
     {
-      "path": "tests\\Lists\\13\\test-lists-13.py",
+      "path": "practices\\Lists\\13\\practice-lists-13.py",
       "status": "TODO",
       "meaningful_loc": 141,
       "warnings": []
     },
     {
-      "path": "tests\\Modules\\1\\test-modules-1.py",
+      "path": "practices\\Modules\\1\\practice-modules-1.py",
       "status": "TODO",
       "meaningful_loc": 78,
       "warnings": []
     },
     {
-      "path": "tests\\OOP\\1\\test-oop-1.py",
+      "path": "practices\\NumPy\\1\\practice-numpy-1.py",
+      "status": "TODO",
+      "meaningful_loc": 104,
+      "warnings": []
+    },
+    {
+      "path": "practices\\OOP\\1\\practice-oop-1.py",
       "status": "TODO",
       "meaningful_loc": 103,
       "warnings": []
     },
     {
-      "path": "tests\\String\\1\\test-string-1.py",
+      "path": "practices\\String\\1\\practice-string-1.py",
       "status": "VALIDATED",
       "meaningful_loc": 22,
       "warnings": []
     },
     {
-      "path": "tests\\String\\2\\test-string-2.py",
+      "path": "practices\\String\\2\\practice-string-2.py",
       "status": "TODO",
       "meaningful_loc": 25,
       "warnings": []
     },
     {
-      "path": "tests\\String\\3\\test-string-3.py",
+      "path": "practices\\String\\3\\practice-string-3.py",
       "status": "TODO",
       "meaningful_loc": 48,
       "warnings": []
     },
     {
-      "path": "tests\\String\\4\\test-string-4.py",
+      "path": "practices\\String\\4\\practice-string-4.py",
       "status": "TODO",
       "meaningful_loc": 21,
       "warnings": []
     },
     {
-      "path": "tests\\String\\5\\test-string-5.py",
+      "path": "practices\\String\\5\\practice-string-5.py",
       "status": "TODO",
       "meaningful_loc": 34,
       "warnings": []
     },
     {
-      "path": "tests\\String\\6\\test-string-6.py",
+      "path": "practices\\String\\6\\practice-string-6.py",
       "status": "TODO",
       "meaningful_loc": 55,
       "warnings": []
     },
     {
-      "path": "tests\\String\\7\\test-string-7.py",
+      "path": "practices\\String\\7\\practice-string-7.py",
       "status": "TODO",
       "meaningful_loc": 62,
       "warnings": []
     },
     {
-      "path": "tests\\String\\8\\test-string-8.py",
+      "path": "practices\\String\\8\\practice-string-8.py",
       "status": "TODO",
       "meaningful_loc": 59,
       "warnings": []
     },
     {
-      "path": "tests\\String\\9\\test-string-9.py",
+      "path": "practices\\String\\9\\practice-string-9.py",
       "status": "TODO",
       "meaningful_loc": 43,
       "warnings": []
     },
     {
-      "path": "tests\\String\\10\\test-string-10.py",
+      "path": "practices\\String\\10\\practice-string-10.py",
       "status": "TODO",
       "meaningful_loc": 50,
       "warnings": []
     },
     {
-      "path": "tests\\String\\11\\test-string-11.py",
+      "path": "practices\\String\\11\\practice-string-11.py",
       "status": "TODO",
       "meaningful_loc": 74,
       "warnings": []
     },
     {
-      "path": "tests\\String\\12\\test-string-12.py",
+      "path": "practices\\String\\12\\practice-string-12.py",
       "status": "TODO",
       "meaningful_loc": 63,
       "warnings": []
     },
     {
-      "path": "tests\\String\\13\\test-string-13.py",
+      "path": "practices\\String\\13\\practice-string-13.py",
       "status": "TODO",
       "meaningful_loc": 69,
       "warnings": []
     },
     {
-      "path": "tests\\String\\14\\test-string-14.py",
+      "path": "practices\\String\\14\\practice-string-14.py",
       "status": "TODO",
       "meaningful_loc": 100,
       "warnings": []
     },
     {
-      "path": "tests\\String\\15\\test-string-15.py",
+      "path": "practices\\String\\15\\practice-string-15.py",
       "status": "TODO",
       "meaningful_loc": 96,
       "warnings": []
     },
     {
-      "path": "tests\\String\\16\\test-string-16.py",
+      "path": "practices\\String\\16\\practice-string-16.py",
       "status": "TODO",
       "meaningful_loc": 126,
       "warnings": []
     },
     {
-      "path": "tests\\String\\17\\test-string-17.py",
+      "path": "practices\\String\\17\\practice-string-17.py",
       "status": "TODO",
       "meaningful_loc": 139,
       "warnings": []
     },
     {
-      "path": "tests\\String\\18\\test-string-18.py",
+      "path": "practices\\String\\18\\practice-string-18.py",
       "status": "TODO",
       "meaningful_loc": 90,
       "warnings": []
     },
     {
-      "path": "tests\\String\\19\\test-string-19.py",
+      "path": "practices\\String\\19\\practice-string-19.py",
       "status": "TODO",
       "meaningful_loc": 177,
       "warnings": []
     },
     {
-      "path": "tests\\String\\20\\test-string-20.py",
+      "path": "practices\\String\\20\\practice-string-20.py",
       "status": "TODO",
       "meaningful_loc": 121,
       "warnings": []
     },
     {
-      "path": "tests\\Tuples\\1\\test-tuples-1.py",
+      "path": "practices\\Tuples\\1\\practice-tuples-1.py",
       "status": "TODO",
       "meaningful_loc": 42,
       "warnings": []
     },
     {
-      "path": "tests\\WebTechnologies\\1\\test-web-tech-1.py",
+      "path": "practices\\WebTechnologies\\1\\practice-web-tech-1.py",
       "status": "TODO",
       "meaningful_loc": 147,
       "warnings": []
